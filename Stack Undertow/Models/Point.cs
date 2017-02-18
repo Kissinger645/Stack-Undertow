@@ -10,10 +10,11 @@ namespace Stack_Undertow.Models
     {
         public int Id { get; set; }
         public int Points { get; set; }
+        public string Reason { get; set; }
 
-        public string PointName { get; set; } //ApplicationUserId
+        public string PointId { get; set; } //ApplicationUserId
 
-        [ForeignKey("PointName")]
-        public virtual ApplicationUser PointId { get; set; }
+        [ForeignKey("PointId")]
+        public virtual ApplicationUser PointUser { get; set; }
     }
 }

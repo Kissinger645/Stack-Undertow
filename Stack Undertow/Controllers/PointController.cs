@@ -6,124 +6,116 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Stack_Undertow.Migrations;
 using Stack_Undertow.Models;
 
 namespace Stack_Undertow.Controllers
 {
-    public class QuestionController : Controller
+    public class PointController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Question
+        // GET: Point
         public ActionResult Index()
         {
-            return View(db.Questions.ToList());
+            var points = db.Points.Include(p => p.PointId);
+            return View(points.ToList());
         }
 
-        // GET: Question/Details/5
+        // GET: Point/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Questions questions = db.Questions.Find(id);
-            if (questions == null)
+            Point point = db.Points.Find(id);
+            if (point == null)
             {
                 return HttpNotFound();
             }
-            return View(questions);
+            return View(point);
         }
 
-        // GET: Question/Create
+        // GET: Point/Create
         public ActionResult Create()
         {
+            ViewBag.PointName = new SelectList(db.Points, "Id", "Email");
             return View();
         }
 
-        // POST: Question/Create
+        // POST: Point/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Question,Created")] Questions questions)
+        public ActionResult Create([Bind(Include = "Id,Points,PointName")] Point point)
         {
             if (ModelState.IsValid)
             {
-                questions.Poster = User.Identity.GetUserName();
-                questions.QuestionerId = User.Identity.GetUserId();
-                questions.Created = DateTime.Now;
-                Point points = new Point();
-                {
-                    points.PointId = User.Identity.GetUserId();
-                    points.Points = 5;
-                    points.Reason = "Asking Question";
-                }
-                
-                db.Points.Add(points);
-                db.Questions.Add(questions);
+                db.Points.Add(point);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(questions);
+            ViewBag.PointName = new SelectList(db.Points, "Id", "Email", point.PointId);
+            return View(point);
         }
 
-        // GET: Question/Edit/5
+        // GET: Point/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Questions questions = db.Questions.Find(id);
-            if (questions == null)
+            Point point = db.Points.Find(id);
+            if (point == null)
             {
                 return HttpNotFound();
             }
-            return View(questions);
+            ViewBag.PointName = new SelectList(db.Points, "Id", "Email", point.PointId);
+            return View(point);
         }
 
-        // POST: Question/Edit/5
+        // POST: Point/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Question,Created")] Questions questions)
+        public ActionResult Edit([Bind(Include = "Id,Points,PointName")] Point point)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(questions).State = EntityState.Modified;
+                db.Entry(point).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(questions);
+            ViewBag.PointName = new SelectList(db.Points, "Id", "Email", point.PointId);
+            return View(point);
         }
 
-        // GET: Question/Delete/5
+        // GET: Point/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Questions questions = db.Questions.Find(id);
-            if (questions == null)
+            Point point = db.Points.Find(id);
+            if (point == null)
             {
                 return HttpNotFound();
             }
-            return View(questions);
+            return View(point);
         }
 
-        // POST: Question/Delete/5
+        // POST: Point/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Questions questions = db.Questions.Find(id);
-            db.Questions.Remove(questions);
+            Point point = db.Points.Find(id);
+            db.Points.Remove(point);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

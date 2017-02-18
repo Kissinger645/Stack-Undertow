@@ -16,11 +16,14 @@ namespace Stack_Undertow.Controllers
         // GET: User
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserName();
-            ViewBag.User = userId;
-            ViewBag.MyPoints = 10;
-            ViewBag.ProfilePic = db.ImageUploads.Where(u => u.Caption == userId).ToList();
-            ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userId).ToList();
+            var userName = User.Identity.GetUserName();
+            var userId = User.Identity.GetUserId();
+            ViewBag.User = userName;
+            var myPoints = db.Points.Where(u => u.PointId == userId).ToList();
+            ViewBag.MyPoints = myPoints;
+            ViewBag.MyScore = myPoints.Sum(u => u.Points);
+            ViewBag.ProfilePic = db.ImageUploads.Where(u => u.Caption == userName).ToList();
+            ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userName).ToList();
             return View();
         }
         public ActionResult Upload()

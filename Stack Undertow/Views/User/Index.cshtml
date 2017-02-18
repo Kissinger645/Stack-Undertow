@@ -4,7 +4,7 @@
 }
 
 <div class="container" style="margin: auto; width: 60%; background-color: powderblue;">
-    <h3>@ViewBag.User - @ViewBag.MyPoints</h3>
+    <h2>@ViewBag.User - Score = @ViewBag.MyScore</h2>
     
     <section style="margin:auto;">
         @foreach (var upload in ViewBag.ProfilePic)
@@ -34,7 +34,14 @@
             }
         </ul>
     </section>
-    <section><h3>Put Score Info Here</h3></section>
+    <section><h3>Score Info</h3>
+        <ul>
+            @foreach (var point in ViewBag.MyPoints)
+            {
+                <li>@point.Points points for @point.Reason</li>
+            }
+        </ul>
+    </section>
    
 </div>
 

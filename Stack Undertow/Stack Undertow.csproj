@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PointController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,6 +231,22 @@
     <Compile Include="Migrations\201702180428052_score.cs" />
     <Compile Include="Migrations\201702180428052_score.Designer.cs">
       <DependentUpon>201702180428052_score.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702181329125_points.cs" />
+    <Compile Include="Migrations\201702181329125_points.Designer.cs">
+      <DependentUpon>201702181329125_points.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702181345421_userpoints.cs" />
+    <Compile Include="Migrations\201702181345421_userpoints.Designer.cs">
+      <DependentUpon>201702181345421_userpoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702181420209_pointreason.cs" />
+    <Compile Include="Migrations\201702181420209_pointreason.Designer.cs">
+      <DependentUpon>201702181420209_pointreason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702181535110_fix.cs" />
+    <Compile Include="Migrations\201702181535110_fix.Designer.cs">
+      <DependentUpon>201702181535110_fix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -312,6 +329,11 @@
     <Content Include="Views\User.cshtml" />
     <Content Include="Views\Home\layout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Point\Create.cshtml" />
+    <Content Include="Views\Point\Delete.cshtml" />
+    <Content Include="Views\Point\Details.cshtml" />
+    <Content Include="Views\Point\Edit.cshtml" />
+    <Content Include="Views\Point\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,6 +368,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702180428052_score.resx">
       <DependentUpon>201702180428052_score.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181329125_points.resx">
+      <DependentUpon>201702181329125_points.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181345421_userpoints.resx">
+      <DependentUpon>201702181345421_userpoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181420209_pointreason.resx">
+      <DependentUpon>201702181420209_pointreason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181535110_fix.resx">
+      <DependentUpon>201702181535110_fix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

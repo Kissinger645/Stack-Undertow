@@ -33,5 +33,8 @@ namespace Stack_Undertow.Models
         public System.Data.Entity.DbSet<Stack_Undertow.Models.Questions> Questions { get; set; }
 
         public DbSet<ImageUpload> ImageUploads { get; set; }
+
+        public System.Data.Entity.DbSet<Stack_Undertow.Models.Point> Points { get; set; }
+
     }
 }
