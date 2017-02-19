@@ -1,3 +1,79 @@
 ﻿Deleted from Question details page
  @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
+
+
+		Original add screenshot from question
+		<label class = "control-label col-md-2">Add Screenshot</label>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("Upload", "Question", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <p>
+                            <input type="file" name="File" class="form-control" />
+                            <input type="submit" value="Add Screenshot" class="btn btn-default" />
+                        </p>
+                    }
+                </div>
+            </div>
+
+----link button for likes on Tiny
+ @Html.ActionLink("Like", "Like", "Link", new { id = link.Id }, new { @class = "btn btn-primary btn-sm" })
+ send question id to form
+
+ -----Button for choosing best answer
+ <div class="form-group">
+            @Html.LabelFor(model => model.Best, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Best)
+                    @Html.ValidationMessageFor(model => model.Best, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+---Old code for Answer Create
+// POST: Answer/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Score,Created,AnswerText,Best,Answerer,QId")] Answer answer)
+        {
+            if (ModelState.IsValid)
+            {
+                answer.Created = DateTime.Now;
+                answer.Answerer = User.Identity.GetUserId();
+                db.Answers.Add(answer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Answerer = new SelectList(db.Answers, "Id", "Email", answer.Answerer);
+            ViewBag.QId = new SelectList(db.Questions, "Id", "Title", answer.QId);
+            return View(answer);
+        }
+ Create aNSWER
+ @using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Question: @ViewBag.QuestionText.ToString()</h4>
+        <hr />
+        @Html.HiddenFor(model => model.QuestionId, new { id = "QuestionId", Value = ViewBag.Question.Id })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.AText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AText, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit Answer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

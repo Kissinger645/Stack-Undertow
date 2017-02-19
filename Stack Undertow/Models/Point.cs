@@ -11,6 +11,7 @@ namespace Stack_Undertow.Models
         public int Id { get; set; }
         public int Points { get; set; }
         public string Reason { get; set; }
+        public DateTime Created { get; set; }
 
         public string PointId { get; set; } //ApplicationUserId
 

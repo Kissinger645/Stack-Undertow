@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Stack_Undertow.Migrations;
 using Stack_Undertow.Models;
+using System.IO;
 
 namespace Stack_Undertow.Controllers
 {
@@ -25,6 +26,7 @@ namespace Stack_Undertow.Controllers
         // GET: Question/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.Answers = db.Answers.Where(q => q.QId == id).ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -36,7 +38,7 @@ namespace Stack_Undertow.Controllers
             }
             return View(questions);
         }
-
+        
         // GET: Question/Create
         public ActionResult Create()
         {
@@ -60,17 +62,44 @@ namespace Stack_Undertow.Controllers
                     points.PointId = User.Identity.GetUserId();
                     points.Points = 5;
                     points.Reason = "Asking Question";
+                    points.Created = DateTime.Now;
                 }
                 
                 db.Points.Add(points);
                 db.Questions.Add(questions);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "User");
             }
 
             return View(questions);
         }
 
+        public ActionResult Upload()
+        {
+            var uploadViewModel = new ImageUploadViewModel();
+            return View(uploadViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Upload(ImageUploadViewModel formData)
+        {
+            var uploadedFile = Request.Files[0];
+            string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
+            var serverPath = Server.MapPath(@"~\Uploads");
+            var fullPath = Path.Combine(serverPath, filename);
+            uploadedFile.SaveAs(fullPath);
+
+            // ---------------------
+
+            var uploadModel = new ImageUpload
+            {
+                Caption = $"Q-{User.Identity.GetUserId()}{DateTime.Now}",
+                File = filename
+            };
+            db.ImageUploads.Add(uploadModel);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         // GET: Question/Edit/5
         public ActionResult Edit(int? id)
         {

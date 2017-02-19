@@ -36,5 +36,7 @@ namespace Stack_Undertow.Models
 
         public System.Data.Entity.DbSet<Stack_Undertow.Models.Point> Points { get; set; }
 
+        public System.Data.Entity.DbSet<Stack_Undertow.Models.Answer> Answers { get; set; }
+
     }
 }

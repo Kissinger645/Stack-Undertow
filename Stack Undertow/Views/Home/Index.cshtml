@@ -1,26 +1,20 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<div class="container">
-
+<div class="container" style="margin: auto;">
+    <h1>All Questions</h1>
     @foreach (var question in ViewBag.AllQuestions)
     {
         <div class="row">
-
-            <!-- Blog Post Content Column -->
             <div class="col-lg-8">
-                <h2>@question.Title</h2>
-                <!-- Author -->
-                <p class="lead">Posted by @question.Poster at @question.Created</p>
-                
-                <!-- Post Content -->
-                <p class="lead">@question.Question</p>
-
-                <!-- Blog Comments -->
-                <!-- Comments Form -->
+                <h3>@question.Title</h3>
+                <h5>@question.Question</h5>
+                <h6>Posted by @question.Poster on @question.Created</h6>
+                @Html.ActionLink("See more", "Details", "Question", new { id = question.Id }, null)
             </div>
         </div>
-    
+    <p></p>
+    <p></p>
     }
     </div>
 

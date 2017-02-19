@@ -14,6 +14,7 @@ namespace Stack_Undertow.Models
         public DateTime Created { get; set; }
         public string Poster { get; set; }
 
+
         public string QuestionerId { get; set; } //ApplicationUserId
 
         [ForeignKey("QuestionerId")]

@@ -30,6 +30,20 @@
                     @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div class="form-group">
+            <label class = "control-label col-md-2">Add Screenshot (before submitting)</label>
+                <div class="col-md-10">
+                    @using (Html.BeginForm("Upload", "Question", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <p>
+                            <input type="file" name="File" class="form-control" />
+                            <input type="submit" value="Add Screenshot" class="btn btn-default" />
+                        </p>
+                    }
+                </div>
+            </div>
+
+            
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

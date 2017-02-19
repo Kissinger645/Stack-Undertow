@@ -1,21 +1,20 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserProfile";
 }
-
 <div class="container" style="margin: auto; width: 50%;">
     <h1>@ViewBag.User</h1>
     <h3>Score: @ViewBag.MyScore</h3>
-    
+
     <section style="margin:auto;">
-            <div class="row">
-                <div class="col-md-3">
-                        <div class="photobox">
-                            <img class="thumb" src="@ViewBag.ProfilePic" />
-                        </div>
-                    @Html.ActionLink("Change Profile Picture", "ProfilePic", "User")     
+        <div class="row">
+            <div class="col-md-3">
+                <div class="photobox">
+                    <img class="thumb" src="@ViewBag.ProfilePic" />
                 </div>
+                @Html.ActionLink("Change Profile Picture", "ProfilePic", "User")
             </div>
+        </div>
     </section>
     <section>
         <h3>My Questions | @Html.ActionLink("New Question", "Create", "Question")</h3>
@@ -26,7 +25,8 @@
             }
         </ul>
     </section>
-    <section><h3>Score Info</h3>
+    <section>
+        <h3>Score Info</h3>
         <ul>
             @foreach (var point in ViewBag.MyPoints)
             {
@@ -34,6 +34,6 @@
             }
         </ul>
     </section>
-   
+
 </div>
 

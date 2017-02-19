@@ -10,16 +10,18 @@ namespace Stack_Undertow.Models
     {
         public int Id { get; set; }
         public int Score { get; set; }
-        public DateTime Created { get; set; }        
+        public DateTime Created { get; set; }
+        public string AnswerText { get; set; }
+        public bool Best { get; set; }
 
-        public string OwnerId { get; set; } 
+        public string Answerer { get; set; } 
 
-        [ForeignKey("OwnerId")]
-        public virtual ApplicationUser Owner { get; set; }
+        [ForeignKey("Answerer")]
+        public virtual ApplicationUser AnswerUser { get; set; }
 
-        public string QuestionId { get; set; } 
+        public int QId { get; set; } 
 
-        [ForeignKey("QuestionId")]
-        public virtual Questions Question { get; set; }
+        [ForeignKey("QId")]
+        public virtual Questions QuestionId { get; set; }
     }
 }

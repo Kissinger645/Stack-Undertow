@@ -14,6 +14,7 @@ namespace Stack_Undertow.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: User
+
         public ActionResult Index()
         {
             var userName = User.Identity.GetUserName();
@@ -22,10 +23,33 @@ namespace Stack_Undertow.Controllers
             var myPoints = db.Points.Where(u => u.PointId == userId).ToList();
             ViewBag.MyPoints = myPoints;
             ViewBag.MyScore = myPoints.Sum(u => u.Points);
-            ViewBag.ProfilePic = db.ImageUploads.Where(u => u.Caption == userName).ToList();
+            var pic = db.ImageUploads.Where(u => u.Caption == userName).OrderByDescending(u => u.Id).First();
+            ViewBag.ProfilePic = pic.FilePath;
             ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userName).ToList();
             return View();
         }
+        public ActionResult ProfilePic()
+        {
+            return View();
+        }
+
+        [Route("User/{UserName}")]
+        public ActionResult UserProfile(string UserName)
+        {
+            var userName = UserName;
+            ApplicationUser user = db.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            string userId = user.Id;
+            ViewBag.User = userName;
+            var myPoints = db.Points.Where(u => u.PointId == userId).ToList();
+            ViewBag.MyPoints = myPoints;
+            ViewBag.MyScore = myPoints.Sum(u => u.Points);
+            var pic = db.ImageUploads.Where(u => u.Caption == userName).OrderByDescending(u => u.Id).First();
+            ViewBag.ProfilePic = pic.FilePath;
+            ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userName).ToList();
+            return View();
+            return View();
+        }
+
         public ActionResult Upload()
         {
             var uploadViewModel = new ImageUploadViewModel();

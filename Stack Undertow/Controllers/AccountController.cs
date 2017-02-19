@@ -79,7 +79,7 @@ namespace Stack_Undertow.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "User");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -141,7 +141,7 @@ namespace Stack_Undertow.Controllers
         {
             return View();
         }
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         //
         // POST: /Account/Register
         [HttpPost]
@@ -153,15 +153,18 @@ namespace Stack_Undertow.Controllers
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var uploadModel = new ImageUpload
+                    {
+                        Caption = model.UserName,
+                        File = (@"default.jpg")
+                    };
+                    db.ImageUploads.Add(uploadModel);
+                    db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }

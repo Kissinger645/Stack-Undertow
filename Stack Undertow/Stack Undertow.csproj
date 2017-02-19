@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PointController.cs" />
@@ -248,6 +249,18 @@
     <Compile Include="Migrations\201702181535110_fix.Designer.cs">
       <DependentUpon>201702181535110_fix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702181554140_datetime.cs" />
+    <Compile Include="Migrations\201702181554140_datetime.Designer.cs">
+      <DependentUpon>201702181554140_datetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702182113417_answertext.cs" />
+    <Compile Include="Migrations\201702182113417_answertext.Designer.cs">
+      <DependentUpon>201702182113417_answertext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702191457491_answer.cs" />
+    <Compile Include="Migrations\201702191457491_answer.Designer.cs">
+      <DependentUpon>201702191457491_answer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -264,6 +277,8 @@
     <Content Include="Content\blog-post.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\default.jpg" />
+    <Content Include="Content\profile.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -334,6 +349,13 @@
     <Content Include="Views\Point\Details.cshtml" />
     <Content Include="Views\Point\Edit.cshtml" />
     <Content Include="Views\Point\Index.cshtml" />
+    <Content Include="Views\User\ProfilePic.cshtml" />
+    <Content Include="Views\Answer\Create.cshtml" />
+    <Content Include="Views\Answer\Delete.cshtml" />
+    <Content Include="Views\Answer\Details.cshtml" />
+    <Content Include="Views\Answer\Edit.cshtml" />
+    <Content Include="Views\Answer\Index.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -380,6 +402,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702181535110_fix.resx">
       <DependentUpon>201702181535110_fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181554140_datetime.resx">
+      <DependentUpon>201702181554140_datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702182113417_answertext.resx">
+      <DependentUpon>201702182113417_answertext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191457491_answer.resx">
+      <DependentUpon>201702191457491_answer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

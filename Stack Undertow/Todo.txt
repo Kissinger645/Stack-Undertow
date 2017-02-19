@@ -1,3 +1,7 @@
-﻿Add Score total on user index
+﻿Add 1 point to answer.Score for each like
+
+Take points away for disliking
 
 enable upload screenshot
+
+Add top user score to front page
