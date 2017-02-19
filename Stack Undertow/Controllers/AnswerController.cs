@@ -22,9 +22,10 @@ namespace Stack_Undertow.Controllers
             return View(answers.ToList());
         }
 
-        public ActionResult Like(int Qid, string AId)
+        public ActionResult Like(int Qid, string AId, int An)
         {
-            
+            Answer answer = db.Answers.Find(An);
+            answer.Score++;
             Point points = new Point();
             {
                 points.PointId = AId;
@@ -36,8 +37,11 @@ namespace Stack_Undertow.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Question", new { id = Qid });
         }
-        public ActionResult Dislike(int Qid, string AId)
+        public ActionResult Dislike(int Qid, string AId, int An)
         {
+            Answer answer = db.Answers.Find(An);
+            answer.Score--;
+
             Point points = new Point();
             {
                 points.PointId = AId;
@@ -46,6 +50,17 @@ namespace Stack_Undertow.Controllers
                 points.Created = DateTime.Now;
             }
             db.Points.Add(points);
+
+            Point point1 = new Point();
+            {
+                points.PointId = User.Identity.GetUserId();
+                points.Points = -1;
+                points.Reason = "Disliked an answer";
+                points.Created = DateTime.Now;
+            }
+            db.Points.Add(points);
+
+
             db.SaveChanges();
             return RedirectToAction("Details", "Question", new { id = Qid });
         }

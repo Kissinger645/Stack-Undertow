@@ -47,7 +47,7 @@ namespace Stack_Undertow.Controllers
             ViewBag.ProfilePic = pic.FilePath;
             ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userName).ToList();
             return View();
-            return View();
+            
         }
 
         public ActionResult Upload()

@@ -26,7 +26,7 @@ namespace Stack_Undertow.Controllers
         // GET: Question/Details/5
         public ActionResult Details(int? id)
         {
-            ViewBag.Answers = db.Answers.Where(q => q.QId == id).ToList();
+            ViewBag.Answers = db.Answers.Where(q => q.QId == id).OrderByDescending(answer => answer.Score).ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -44,8 +44,8 @@
     {
        
             <p>(Score: @answer.Score) @answer.AnswerUser.UserName - @answer.AnswerText 
-                | @Html.ActionLink("Like", "Like", "Answer", new { Qid = Model.Id, AId = answer.Answerer }, null)
-                | @Html.ActionLink("Dislike", "Dislike", "Answer", new { Qid = Model.Id, AId = answer.Answerer }, null)
+                | @Html.ActionLink("Like", "Like", "Answer", new { Qid = Model.Id, AId = answer.Answerer, An = answer.Id }, null)
+                | @Html.ActionLink("Dislike", "Dislike", "Answer", new { Qid = Model.Id, AId = answer.Answerer, An = answer.Id }, null)
             </p>
     }
 </div>
