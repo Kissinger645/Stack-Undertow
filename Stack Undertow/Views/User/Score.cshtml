@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Score";
+}
+
+<section>
+    <h3>Score Info</h3>
+    <ul>
+        @foreach (var point in ViewBag.MyPoints)
+            {
+            <li>@point.Points points for @point.Reason on @point.Created</li>
+        }
+    </ul>
+</section>
+
+
+

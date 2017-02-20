@@ -2,19 +2,41 @@
     ViewBag.Title = "Home Page";
 }
 <div class="container" style="margin: auto;">
-    <h1>All Questions</h1>
+    <h3>Top 3 Users</h3>
+    <ul class="list-group">
+        
+            <li class="list-group-item">
+                <span class="badge">100</span>
+                BobbyK
+            </li>
+        <li class="list-group-item">
+            <span class="badge">99</span>
+            MrT
+        </li>
+        <li class="list-group-item">
+            <span class="badge">98</span>
+            IceT
+        </li>
+        
+        
+    </ul>
+
+    <br />
+    <br />
+
+    <h3>Questions</h3>
     @foreach (var question in ViewBag.AllQuestions)
     {
         <div class="row">
             <div class="col-lg-8">
-                <h3>@question.Title</h3>
+                <h4>@question.Title</h4>
                 <h5>@question.Question</h5>
                 <h6>Posted by @question.Poster on @question.Created</h6>
                 @Html.ActionLink("See more", "Details", "Question", new { id = question.Id }, null)
             </div>
         </div>
-    <p></p>
-    <p></p>
+        <p></p>
+        <p></p>
     }
-    </div>
+</div>
 

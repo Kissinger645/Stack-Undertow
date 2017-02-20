@@ -4,63 +4,60 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <section style="margin:auto;">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="photobox">
+                    <img class="thumb" src="@ViewBag.AnswerPic" />
+                </div>
+               
+            </div>
+        </div>
+    </section>
+    <div>
+        <h4>Answer</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AnswerUser.Email)
+            </dt>
 
-<div>
-    <h4>Answer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AnswerUser.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AnswerUser.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AnswerUser.Email)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.QuestionId.Title)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.QuestionId.Title)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.QuestionId.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.QuestionId.Title)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Score)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Score)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Score)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Score)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AnswerText)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AnswerText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AnswerText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Best)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Best)
-        </dd>
-
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.AnswerText)
+            </dd>
+        </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

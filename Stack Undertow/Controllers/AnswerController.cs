@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stack_Undertow.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace Stack_Undertow.Controllers
 {
@@ -22,6 +23,7 @@ namespace Stack_Undertow.Controllers
             return View(answers.ToList());
         }
 
+        [Authorize]
         public ActionResult Like(int Qid, string AId, int An)
         {
             Answer answer = db.Answers.Find(An);
@@ -37,6 +39,8 @@ namespace Stack_Undertow.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", "Question", new { id = Qid });
         }
+
+        [Authorize]
         public ActionResult Dislike(int Qid, string AId, int An)
         {
             Answer answer = db.Answers.Find(An);
@@ -59,10 +63,37 @@ namespace Stack_Undertow.Controllers
                 points.Created = DateTime.Now;
             }
             db.Points.Add(points);
-
+             
 
             db.SaveChanges();
             return RedirectToAction("Details", "Question", new { id = Qid });
+        }
+
+        [Authorize]
+        public ActionResult Upload(int id)
+        {
+            var uploadViewModel = new ImageUploadViewModel();
+            return View(uploadViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Upload(ImageUploadViewModel formData, int id)
+        {
+            var Aid = id.ToString();
+            var uploadedFile = Request.Files[0];
+            string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
+            var serverPath = Server.MapPath(@"~\Uploads");
+            var fullPath = Path.Combine(serverPath, filename);
+            uploadedFile.SaveAs(fullPath);
+            
+            var uploadModel = new ImageUpload
+            {
+                Caption = Aid,
+                File = filename
+            };
+            db.ImageUploads.Add(uploadModel);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Answer", new { id });
         }
         // GET: Answer/Details/5
         public ActionResult Details(int? id)
@@ -76,10 +107,16 @@ namespace Stack_Undertow.Controllers
             {
                 return HttpNotFound();
             }
+            if (db.ImageUploads.Where(u => u.Caption == "ANSWERNAME").FirstOrDefault() != null)
+            {
+                var pic = db.ImageUploads.Where(u => u.Caption == "ANSWERNAME").FirstOrDefault();
+                ViewBag.AnswerPic = pic.FilePath;
+            }
             return View(answer);
         }
 
         // GET: Answer/Create
+        [Authorize]
         public ActionResult Create(int? Qid)
         {
            
@@ -99,7 +136,7 @@ namespace Stack_Undertow.Controllers
                 answer.Answerer = User.Identity.GetUserId();
                 db.Answers.Add(answer);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Question", new { id = answer.QId });
+                return RedirectToAction("Upload", "Answer", new { answer.Id });
             }
 
             return View(answer);

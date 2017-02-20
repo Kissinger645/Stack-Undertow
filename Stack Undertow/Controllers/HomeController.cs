@@ -15,6 +15,7 @@ namespace Stack_Undertow.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.TopUsers = db.Users.Take(3);
             ViewBag.AllQuestions = db.Questions;
             return View();
         }

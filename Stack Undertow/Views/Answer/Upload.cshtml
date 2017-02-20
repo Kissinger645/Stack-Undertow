@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Screenshot";
+}
+
+<div class="container" style="margin: auto; width: 50%;">
+    <h3>Add Screenshot</h3>
+
+    @using (Html.BeginForm("Upload", "Answer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <p>
+            <input type="file" name="File" class="form-control" />
+            <input type="submit" value="Add Screenshot" class="btn btn-primary" />
+        </p>
+    }
+    <h4>@Html.ActionLink("No Screenshot", "Index", "User")</h4>
+</div>

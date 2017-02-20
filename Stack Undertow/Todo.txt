@@ -1,7 +1,11 @@
-﻿Add 1 point to answer.Score for each like
+﻿
 
-Take points away for disliking
 
-enable upload screenshot
+
+nmake it so you can't like your own answer
+
+make it so you can't like something multiple times
 
 Add top user score to front page
+make separate page for score details
+Add most popular questions

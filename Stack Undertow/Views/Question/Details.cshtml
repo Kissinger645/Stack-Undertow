@@ -4,6 +4,15 @@
     ViewBag.Title = "Details";
 }
 <div class="container" style="margin: auto;">
+    <section style="margin:auto;">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="photobox">
+                    <img class="thumb" src="@ViewBag.Screenshot" />
+                </div>
+            </div>
+        </div>
+    </section>
     <div>
         <h4>Questions</h4>
         <hr />
@@ -32,10 +41,9 @@
                 @Html.DisplayFor(model => model.Created)
             </dd>
             <dt>
-                Answer
             </dt>
             <dd>
-                @Html.ActionLink("Answer", "Create", "Answer", new { Qid = Model.Id }, null)
+                @Html.ActionLink("Add Answer", "Create", "Answer", new { Qid = Model.Id }, null)
             </dd>
         </dl>
     </div>
@@ -43,7 +51,8 @@
     @foreach (var answer in ViewBag.Answers)
     {
        
-            <p>(Score: @answer.Score) @answer.AnswerUser.UserName - @answer.AnswerText 
+            <p>(Score: @answer.Score) @answer.AnswerUser.UserName - @answer.AnswerText -
+                | @Html.ActionLink("Details", "Details", "Answer", new { id = answer.Id }, null)
                 | @Html.ActionLink("Like", "Like", "Answer", new { Qid = Model.Id, AId = answer.Answerer, An = answer.Id }, null)
                 | @Html.ActionLink("Dislike", "Dislike", "Answer", new { Qid = Model.Id, AId = answer.Answerer, An = answer.Id }, null)
             </p>

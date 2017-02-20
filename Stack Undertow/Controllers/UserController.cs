@@ -14,7 +14,6 @@ namespace Stack_Undertow.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: User
-
         public ActionResult Index()
         {
             var userName = User.Identity.GetUserName();
@@ -33,7 +32,7 @@ namespace Stack_Undertow.Controllers
             return View();
         }
 
-        [Route("User/{UserName}")]
+        [Route("u/{UserName}")]
         public ActionResult UserProfile(string UserName)
         {
             var userName = UserName;
@@ -48,6 +47,11 @@ namespace Stack_Undertow.Controllers
             ViewBag.MyQuestions = db.Questions.Where(u => u.Poster == userName).ToList();
             return View();
             
+        }
+        public ActionResult Score()
+        {
+            
+            return View();
         }
 
         public ActionResult Upload()

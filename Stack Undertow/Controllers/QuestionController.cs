@@ -26,6 +26,13 @@ namespace Stack_Undertow.Controllers
         // GET: Question/Details/5
         public ActionResult Details(int? id)
         {
+            var cId = id.ToString();
+            if (db.ImageUploads.Where(u => u.Caption == cId).FirstOrDefault() != null)
+            {
+                var pic = db.ImageUploads.Where(u => u.Caption == cId).FirstOrDefault();
+                ViewBag.Screenshot = pic.FilePath;
+            }
+            
             ViewBag.Answers = db.Answers.Where(q => q.QId == id).OrderByDescending(answer => answer.Score).ToList();
             if (id == null)
             {
@@ -64,42 +71,41 @@ namespace Stack_Undertow.Controllers
                     points.Reason = "Asking Question";
                     points.Created = DateTime.Now;
                 }
-                
                 db.Points.Add(points);
                 db.Questions.Add(questions);
                 db.SaveChanges();
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Upload", "Question", new { id = questions.Id});
             }
 
             return View(questions);
         }
 
-        public ActionResult Upload()
+        public ActionResult Upload(int id)
         {
             var uploadViewModel = new ImageUploadViewModel();
             return View(uploadViewModel);
         }
 
         [HttpPost]
-        public ActionResult Upload(ImageUploadViewModel formData)
+        public ActionResult Upload(ImageUploadViewModel formData, int id)
         {
+            var qId = id.ToString();
             var uploadedFile = Request.Files[0];
             string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
             var serverPath = Server.MapPath(@"~\Uploads");
             var fullPath = Path.Combine(serverPath, filename);
             uploadedFile.SaveAs(fullPath);
 
-            // ---------------------
-
             var uploadModel = new ImageUpload
             {
-                Caption = $"Q-{User.Identity.GetUserId()}{DateTime.Now}",
+                Caption = qId,
                 File = filename
             };
             db.ImageUploads.Add(uploadModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Question", new { id });
         }
+
         // GET: Question/Edit/5
         public ActionResult Edit(int? id)
         {
