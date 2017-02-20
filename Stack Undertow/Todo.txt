@@ -1,6 +1,6 @@
 ﻿
 
-
+answer takes you to question details
 
 nmake it so you can't like your own answer
 
